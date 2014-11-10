@@ -6,8 +6,12 @@ TESTFILE="rons-test-file.ext"
 #This is passed direectly to mkfile, so 1g, 1m, 500k, etc are valid options.
 TESTFILESIZE="5m"
 
+
+
 # by default, pigz will use -p = $system_cores (real + hyperthreaded)
-NUMPROCESSES=2
+#
+# if you want to test a variation in this value, change it from 0 and the script will run a an addition pigz compression with this value in addition to the defaults.
+NUMPROCESSES="0"
 
 
 ### script stuff here.
@@ -19,6 +23,14 @@ echo "note: this script uses pigz ('Parallel gzip', http://zlib.net/pigz/), whic
 echo "if you don't have it and you use homebrew, install it by: brew install pigz."
 echo ""
 
+echo "gathering basic system hardware info..."
+
+system_profiler SPHardwareDataType
+echo ""
+echo ""
+
+
+echo "#######################"
 echo "checking to see if $TESTFILE already exists..."
 
 if [ -f "$TESTFILE" ]
@@ -65,17 +77,27 @@ echo ""
 
 
 
-echo "running pigz test with -p 2..."
-time pigz -k -p $NUMPROCESSES $TESTFILE
+if [ $NUMPROCESSES -ne "0" ]
+	then
+		echo "#######################"
+		echo "running pigz test with -p $NUMPROCESSES ..."
+		time pigz -k -p $NUMPROCESSES $TESTFILE
 
-mv $TESTFILE.gz $TESTFILE.pigz-n-$NUMPROCESSES.gz
-echo ""
-echo ""
+		mv $TESTFILE.gz $TESTFILE.pigz-n-$NUMPROCESSES.gz
+		echo ""
+		echo ""
+	else
+		echo "#######################"
+		echo "skipping pigz test with custom # of processes.  If you'd like to run this, open the script file and change NUMPROCESSES to something other than '0'"
+		echo ""
+		echo ""
+fi
 
 echo "done with compression."
+echo "#######################"
 echo ""
 
-echo "if you'd like to test your results (by using md5, for instance), you can do so now.  Be sure to specify the -k flag to both unpigz and gunzip to keep your input files if you so desire."
+echo "if you'd like to test your results (by using md5, for instance), you can do so now.  Be sure to specify the -k flag to both unpigz and gunzip if you want to keep your input files."
 echo ""
 
 echo "done with script."
