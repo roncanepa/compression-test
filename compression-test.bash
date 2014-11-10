@@ -1,7 +1,6 @@
 ### options here
 
-#TESTFILE="test-file.dat"
-TESTFILE="rons-test-file.ext"
+TESTFILE="test-file.dat"
 
 #This is passed direectly to mkfile, so 1g, 1m, 500k, etc are valid options.
 TESTFILESIZE="5m"
