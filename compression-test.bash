@@ -3,7 +3,8 @@
 TESTFILE="test-file.dat"
 
 #This is passed direectly to mkfile, so 1g, 1m, 500k, etc are valid options.
-TESTFILESIZE="5m"
+# Note: if you change this value, you should delete the old file from your directory.
+TESTFILESIZE="1g"
 
 
 
@@ -22,7 +23,7 @@ echo "note: this script uses pigz ('Parallel gzip', http://zlib.net/pigz/), whic
 echo "if you don't have it and you use homebrew, install it by: brew install pigz."
 echo ""
 
-echo "gathering basic system hardware info..."
+echo "printing basic system hardware info..."
 
 system_profiler SPHardwareDataType
 echo ""
