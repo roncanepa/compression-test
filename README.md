@@ -8,7 +8,7 @@ I often work with large text files full of next-gen sequencing data and I wanted
 This script uses pigz ('Parallel gzip', http://zlib.net/pigz/), which is not installed by default.
 
 if you don't have it and you use homebrew, install it by: 
-````brew install pigz
+`brew install pigz`
 
 **Note**: both pigz/unpigz and gzip/gunzip remove the input files by default if successful.  supress this behavior with the -k flag, if relevant.
 
@@ -25,14 +25,15 @@ if you don't have it and you use homebrew, install it by:
 
 You can run it as-is:
 
-````./compression-test.bash````
+```
+./compression-test.bash
+```
 
 The default is to create a 1GB test file for use in compression tests.
 
 To adjust the test file size, modify the script and change the following line:
 
 ````
-#This is passed direectly to mkfile, so 1g, 1m, 500k, etc are valid options.
 TESTFILESIZE="1g"
 ````
 
